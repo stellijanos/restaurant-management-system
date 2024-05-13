@@ -39,9 +39,12 @@
                         <tr>
                             <th scope="row">{{$category->id}}</th>
                             <th scope="row">{{$category->name}}</th>
-                            <th scope="row"><button class="btn btn-warning">Edit</button></th>
-                            <th scope="row"><button class="btn btn-danger">Delete</button></th>
-                            
+                            <th scope="row">
+                                <a href="/management/category/{{$category->id}}/edit" class="btn btn-warning">Edit</a>
+                            </th>
+                            <th scope="row">
+                                <a class="btn btn-danger">Delete</a>
+                            </th>
                         </tr>
                     @endforeach
                 </tbody>
