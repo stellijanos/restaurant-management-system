@@ -24,6 +24,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category )
+                        <tr>
+                            <th scope="row">{{$category->id}}</th>
+                            <th scope="row">{{$category->name}}</th>
+                            <th scope="row"><button class="btn btn-warning">Edit</button></th>
+                            <th scope="row"><button class="btn btn-danger">Delete</button></th>
+                            
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+            <div class="justify-content-center">
+                {{ $categories->links() }}
+            </div>
         </div>
     </div>
 </div>

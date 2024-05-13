@@ -15,8 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // return view('management.index');
-        return view('management.category');
+
+        return view('management.category', [
+            'categories' =>  Category::paginate(5)
+        ]);
     }
 
     /**
