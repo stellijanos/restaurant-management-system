@@ -18,6 +18,12 @@
             <i class="fa-solid fa-bars"></i> Category
             <a href="/management/category/create" class="btn btn-success btn-sm float-end text-white"><i class="fa-solid fa-plus"></i> Create category</a>
             <hr>
+            @if(session()->has('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{session()->get('status')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
         </div>
     </div>
 </div>
