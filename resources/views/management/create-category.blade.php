@@ -14,8 +14,16 @@
                 <a href="" class="list-group-item list-group-item-action"><i class="fa-solid fa-users-gear"></i> User</a>
             </div>
         </div>
-        <div class="col-md-8">
-
+        <div class="col-md-8 mt-3">
+            <i class="fa-solid fa-bars"></i> Create a Category
+            <hr>
+            <form action="" class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="category-name">Category name</label>
+                    <input type="text" name="name" class="form-control" id="category-name" placeholder="Category...">
+                </div>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Management\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/management', function() {
     return view('management.index');
 });
+
+
+Route::resource('management/category', 'App\Http\Controllers\Management\CategoryController');
+// Route::get('management/category',[CategoryController::class, 'index']);
