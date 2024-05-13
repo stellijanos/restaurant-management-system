@@ -18,7 +18,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <form class="mt-3" action="/management/menu" method="POST">
+            <form class="mt-3" action="/management/menu" method="POST" enctype="multipart/form-data">
                 @csrf 
                 <div class="form-group mb-3">
                     <label for="menu-name">Menu name</label>
@@ -38,7 +38,7 @@
 
                 <div class="mb-3">
                     <label for="file" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="file" name="file">
+                    <input class="form-control" type="file" id="file" name="image">
                 </div>
 
                 <div class="form-group mb-3">
