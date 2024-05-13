@@ -9,7 +9,7 @@
         @include('management.inc.sidebar')
         <div class="col-md-8 mt-3">
             <i class="fa-solid fa-burger"></i> Menu
-            <a href="/management/category/create" class="btn btn-success btn-sm float-end text-white"><i class="fa-solid fa-plus"></i> Create menu</a>
+            <a href="/management/menu/create" class="btn btn-success btn-sm float-end text-white"><i class="fa-solid fa-plus"></i> Create menu</a>
             <hr>
             @if(session()->has('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
