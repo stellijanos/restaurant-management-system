@@ -29,7 +29,7 @@ Route::get('/management', function() {
 });
 
 Route::get('/cashier', [CashierController::class, 'index']);
-
+Route::get('/cashier/get-menu-by-category/{category_id}',[CashierController::class, 'getMenuByCategory']);
 Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
 
 

@@ -8,19 +8,25 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-5 d-grid gap-2">
-            <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
+        <div class="col-md-5">
+            <div class="d-grid">
+                <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
+            </div>
         </div>
         <div class="col-md-7">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     @foreach ($categories as $category )
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{$category->name}}</a>
+                            <a class="nav-link" data-id="{{$category->id}}" href="#">{{$category->name}}</a>
                         </li>
                     @endforeach
                 </div>
             </nav>
+
+            <div id="list-menu" class="row mt-2">
+
+            </div>
         </div>
     </div>
 </div>
@@ -42,15 +48,25 @@
                     .addClass('btn-danger');
                 });
             } else {
-                $("#table-detail").slideUp('fast');
+                $("#table-detail").slideUp('smooth');
                 $('#btn-show-tables')
                     .html('View Tables')
                     .removeClass('btn-danger')
                     .addClass('btn-primary');
             }
-
-           
         });
+
+
+        // load menus by category
+
+        $(".nav-link").click(function() {
+            $.get("/cashier/get-menu-by-category/"+$(this).data("id"), function(data) {
+                $("#list-menu").hide();
+                $("#list-menu").html(data);
+                $("#list-menu").fadeIn('fast');
+            });
+        });
+
     });
 </script>
 @endsection
