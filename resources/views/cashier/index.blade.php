@@ -18,11 +18,30 @@
 </div>
 <script>
     $(document).ready(function() {
+        // make table detail hidden by default
+        $('#table-detail').hide();
+
+        // show all tables when a client clicks on the button
         $('#btn-show-tables').click(function() {
-            $.get("/cashier/get-tables", function(data) {
-                console.log(data);
-                $("#table-detail").html(data);
-            })
+
+            if($('#table-detail').is(':hidden')) {
+                $.get("/cashier/get-tables", function(data) {
+                    $("#table-detail").html(data);
+                    $("#table-detail").slideDown('smooth');
+                    $('#btn-show-tables')
+                    .html('Hide Tables')
+                    .removeClass('btn-primary')
+                    .addClass('btn-danger');
+                });
+            } else {
+                $("#table-detail").slideUp('fast');
+                $('#btn-show-tables')
+                    .html('View Tables')
+                    .removeClass('btn-danger')
+                    .addClass('btn-primary');
+            }
+
+           
         });
     });
 </script>
