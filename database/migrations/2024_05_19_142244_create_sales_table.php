@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('table_name');
             $table->integer('user_id');
             $table->string('user_name');
+            $table->decimal('total_price')->default(0);
             $table->decimal('total_recieved')->default(0);
             $table->decimal('change')->default(0);
             $table->string('payment_type')->default(''); // cash or credit
