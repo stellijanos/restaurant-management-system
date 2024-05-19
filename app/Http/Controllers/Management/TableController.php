@@ -11,11 +11,14 @@ class TableController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
-        return view('management.table');
+        
+        return view('management.table', [
+            'tables' => Table::all()
+        ]);
     }
 
     /**

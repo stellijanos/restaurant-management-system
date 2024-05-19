@@ -29,7 +29,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach ($tables as $table )
+                        <tr>
+                            <td>{{$table->id}}</td>
+                            <td>{{$table->name}}</td>
+                            <td>{{$table->status}}</td>
+                        </tr>
+                        
+                    @endforeach
                 </tbody>
             </table>
 
