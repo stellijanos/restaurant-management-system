@@ -40,9 +40,14 @@
                             <td><img src="{{asset('menu-images/'.$menu->image)}}" alt="{{$menu->name}}" width="120px" height="120px" class="img-thumbnail"></td>
                             <td>{{$menu->description}}</td>
                             <td>{{$menu->category->name}}</td>
-                            
                             <td><a href="/management/menu/{{$menu->id}}/edit" class="btn btn-warning">Edit</a></td>
-                            <td><a href="" class="btn btn-danger">Delete</a></td>    
+                            <td>
+                                <form action="/management/menu/{{$menu->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>    
                         </tr>
                     @endforeach
                 </tbody>

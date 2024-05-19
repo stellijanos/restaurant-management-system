@@ -150,10 +150,19 @@ class MenuController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $menu = Menu::find($id);
+
+        if ($menu->image != "noimage.png") {
+            unlink(public_path('menu-images').'/'.$menu->image);
+        }
+        $menuName = $menu->name;
+        $menu->delete();
+        Session()->flash('status', $menuName.' is deleted successfully!');
+
+        return redirect('/management/menu');
     }
 }
