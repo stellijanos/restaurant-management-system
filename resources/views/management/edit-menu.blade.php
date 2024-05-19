@@ -18,8 +18,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <form class="mt-3" action="/management/menu" method="POST" enctype="multipart/form-data">
+            <form class="mt-3" action="/management/menu/{{$menu->id}}" method="POST" enctype="multipart/form-data">
                 @csrf 
+                @method('PUT')
                 <div class="form-group mb-3">
                     <label for="menu-name">Menu name</label>
                     <input type="text" name="name" class="form-control" value="{{$menu->name}}" id="menu-name" placeholder="Menu...">
@@ -50,7 +51,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-warning" type="submit">Edit</button>
             </form>
         </div>
     </div>

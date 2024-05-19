@@ -103,11 +103,47 @@ class MenuController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        // information validation
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required|numeric',
+            'category_id' => 'required|numeric'
+        ]);
+
+        $menu = Menu::find($id);
+
+        // validate if a user uploads image
+
+        if ($request->image) {
+            $request->validate([
+                'image' => 'nullable|file|image|mimes:jpg,jpeg,png|max:5000'
+            ]);
+
+            if ($menu->image != "noimage.png") {
+                $imageName = $menu->image;
+                unlink(public_path('menu-images').'/'.$imageName);
+            }
+
+            $imageName = date('Ymdhis').uniqid().'.'.$request->image->extension();
+            $request->image->move(public_path('menu-images'), $imageName);
+        } else {
+            $imageName = $menu->image;
+        }
+
+        $menu->name = $request->name;
+        $menu->price = $request->price;
+        $menu->image = $imageName;
+        $menu->description = $request->description;
+        $menu->category_id = $request->category_id;
+        $menu->save();
+        
+        $request->session()->flash('status', $request->name.' is updated successfully!');
+        return redirect('/management/menu');
     }
 
     /**
