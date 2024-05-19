@@ -111,6 +111,50 @@ class CashierController extends Controller
         $sale->total_price = $sale->total_price + ($request->quantity * $menu->price);
         $sale->save(); 
 
-        return $sale->total_price; // testing
+
+        $html = $this->getSaleDetails($sale_id);
+
+        return $html;
+    }
+
+    private function getSaleDetails($sale_id) {
+        // list all saledetails
+
+        $html = '<p>Sale ID: '.$sale_id.'</p>';
+        $saleDetails = SaleDetail::where('sale_id', $sale_id)->get();
+        $html .= '
+        <div class="table-responsive" style="overflow-y:scroll; height: 400px; border:1px solid #343A40">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <td scope="col">ID</td>
+                        <td scope="col">Menu</td>
+                        <td scope="col">Quantity</td>
+                        <td scope="col">Price</td>
+                        <td scope="col">Total</td>
+                        <td scope="col">Status</td>
+                    <tr>
+                </thead>
+                <tbody>';
+
+            foreach($saleDetails as $saleDetail) {
+                $html .= '
+                <tr>
+                    <td>'.$saleDetail->menu_id.'</td>
+                    <td>'.$saleDetail->menu_name.'</td>
+                    <td>'.$saleDetail->quantity.'</td>
+                    <td>'.$saleDetail->menu_price.'</td>
+                    <td>'.($saleDetail->menu_price * $saleDetail->quantity).'</td>
+                    <td>'.$saleDetail->status.'</td>
+                <tr>';
+            }
+
+
+        $html .='</tbody>
+            </table>
+        
+        </div>';
+
+        return $html;
     }
 }
