@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Cashier\CashierController;
 use App\Http\Controllers\Management\CategoryController;
+use App\Http\Controllers\Management\MenuController;
+use App\Http\Controllers\Management\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +33,8 @@ Route::get('/management', function() {
 Route::get('/cashier', [CashierController::class, 'index']);
 Route::get('/cashier/get-menu-by-category/{category_id}',[CashierController::class, 'getMenuByCategory']);
 Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
+Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
 
-
-Route::resource('management/category', 'App\Http\Controllers\Management\CategoryController');
-Route::resource('management/menu', 'App\Http\Controllers\Management\MenuController');
-Route::resource('management/table','App\Http\Controllers\Management\TableController');
+Route::resource('management/category', CategoryController::class);
+Route::resource('management/menu', MenuController::class);
+Route::resource('management/table', TableController::class);

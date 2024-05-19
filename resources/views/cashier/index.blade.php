@@ -12,7 +12,10 @@
             <div class="d-grid">
                 <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
                 <div id="selected-table">
-
+                   
+                </div>
+                <div id="order-detail">
+                    
                 </div>
             </div>
         </div>
@@ -70,14 +73,43 @@
             });
         });
 
+        let SELECTED_TABLE_ID = "";
+        let SELECTED_TABLE_NAME = "";
+
         // detect button on click to show table data
         $('#table-detail').on("click", ".btn-table", function() {
-            let selectedTableId = $(this).data("id");
-            let selectedTableName = $(this).data("name");
+            SELECTED_TABLE_ID = $(this).data("id");
+            SELECTED_TABLE_NAME = $(this).data("name");
 
-            $("#selected-table").html('<br><h3>Table: ' + selectedTableName + ' </h3><hr>')
+            $("#selected-table").html('<br><h3>Table: ' + SELECTED_TABLE_NAME + ' </h3><hr>')
+        });
 
-            console.log(selectedTableId, selectedTableName);
+        $("#list-menu").on("click", ".btn-menu", function() {
+            if (SELECTED_TABLE_ID == "") {
+                alert('You need to select a table for the customer first!');
+            } else {
+                let menu_id = $(this).data("id");
+                
+                $.ajax({
+                    type:"POST",
+                    url: "/cashier/order-food",
+                    data : {
+                        "_token" : $('meta[name="csrf-token"]').attr('content'),
+                        "menu_id": menu_id,
+                        "table_id":SELECTED_TABLE_ID,
+                        "table_name":SELECTED_TABLE_NAME,
+                        "quantity": 1
+                    },
+                    
+                    success: function(data) {
+                        console.log(data);
+                        $("#order-detail").html(data);
+                    },
+                    error: function(data) {
+                        alert(data);
+                   }
+                });
+            }
         });
 
     });

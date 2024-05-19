@@ -52,7 +52,7 @@ class CashierController extends Controller
         foreach($menus as $menu) {
             $html .= 
             '<div class="col-md-3 text-center mb-3">
-                <a class="btn btn-outline-secondary" data-id="'.$menu->id.'">
+                <a class="btn btn-outline-secondary btn-menu" data-id="'.$menu->id.'">
                     <img class="img img-fluid" src="'.url('/menu-images/'.$menu->image).'" style="width:120px; height:120px !important">
                     <br> 
                     '.$menu->name.'
@@ -64,5 +64,10 @@ class CashierController extends Controller
 
         return $html;
 
+    }
+
+
+    public function orderFood(Request $request) {
+        return $request->menu_id;
     }
 }
