@@ -28,9 +28,7 @@ Route::get('/management', function() {
     return view('management.index');
 });
 
-Route::get('/cashier', function() {
-    return view('cashier.index');
-});
+Route::get('/cashier', [CashierController::class, 'index']);
 
 Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
 

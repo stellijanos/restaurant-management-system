@@ -12,7 +12,15 @@
             <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
         </div>
         <div class="col-md-7">
-
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    @foreach ($categories as $category )
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{$category->name}}</a>
+                        </li>
+                    @endforeach
+                </div>
+            </nav>
         </div>
     </div>
 </div>
