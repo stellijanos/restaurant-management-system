@@ -44,13 +44,16 @@ class CashierController extends Controller
     public function getMenuByCategory($category_id) {
         $menus = Menu::where('category_id', $category_id)->get();
 
+        if (count($menus) === 0) {
+            return '<p class="text-center fs-3">No items were found.</p>';
+        }
         $html = '';
 
         foreach($menus as $menu) {
             $html .= 
-            '<div class="col-md-3 text-center">
+            '<div class="col-md-3 text-center mb-3">
                 <a class="btn btn-outline-secondary" data-id="'.$menu->id.'">
-                    <img class="img img-fluid" src="'.url('/menu-images/'.$menu->image).'" width="120px">
+                    <img class="img img-fluid" src="'.url('/menu-images/'.$menu->image).'" style="width:120px; height:120px !important">
                     <br> 
                     '.$menu->name.'
                     <br>
