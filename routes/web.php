@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cashier\CashierController;
 use App\Http\Controllers\Management\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,9 @@ Route::get('/management', function() {
 Route::get('/cashier', function() {
     return view('cashier.index');
 });
+
+Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
+
 
 Route::resource('management/category', 'App\Http\Controllers\Management\CategoryController');
 Route::resource('management/menu', 'App\Http\Controllers\Management\MenuController');
