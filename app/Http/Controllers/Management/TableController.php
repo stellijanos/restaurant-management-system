@@ -98,10 +98,13 @@ class TableController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        Table::destroy($id);
+
+        Session()->flash('status', 'The table is deleted sucessfully!');
+        return redirect('/management/table');
     }
 }

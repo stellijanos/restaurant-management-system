@@ -25,7 +25,7 @@
                     <label for="table-name">Table name</label>
                     <input type="text" name="name" class="form-control" value="{{$table->name}}" id="table-name" placeholder="Table...">
                 </div>
-                <button class="btn btn-primary" type="submit">Edit</button>
+                <button class="btn btn-warning" type="submit">Edit</button>
             </form>
         </div>
     </div>
