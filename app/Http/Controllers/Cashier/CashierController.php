@@ -30,7 +30,7 @@ class CashierController extends Controller
         foreach($tables as $table) {
             $html .= 
             '<div class="col-md-2 mb-4">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary btn-table" data-id="'.$table->id.'" data-name="'.$table->name.'">
                     <img class="img-fluid" src="'.url('/images/table.png').'" width="120px">
                     <br>
                     <span class="badge text-bg-success">'.$table->name.'</span>

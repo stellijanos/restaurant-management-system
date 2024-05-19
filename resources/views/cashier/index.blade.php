@@ -11,6 +11,9 @@
         <div class="col-md-5">
             <div class="d-grid">
                 <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
+                <div id="selected-table">
+
+                </div>
             </div>
         </div>
         <div class="col-md-7">
@@ -65,6 +68,16 @@
                 $("#list-menu").html(data);
                 $("#list-menu").fadeIn('fast');
             });
+        });
+
+        // detect button on click to show table data
+        $('#table-detail').on("click", ".btn-table", function() {
+            let selectedTableId = $(this).data("id");
+            let selectedTableName = $(this).data("name");
+
+            $("#selected-table").html('<br><h3>Table: ' + selectedTableName + ' </h3><hr>')
+
+            console.log(selectedTableId, selectedTableName);
         });
 
     });
