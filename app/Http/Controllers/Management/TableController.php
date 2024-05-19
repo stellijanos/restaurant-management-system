@@ -65,11 +65,13 @@ class TableController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        return view('management.edit-table',[
+            'table' => Table::find($id)
+        ]);
     }
 
     /**
@@ -77,11 +79,19 @@ class TableController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:tables|max:255'
+        ]);
+        $table = Table::find($id);
+        $table->name = $request->name;
+        $table->save();
+
+        $request->session()->flash('status', 'The table is updated to '.$request->name.' successfully!');
+        return redirect('/management/table');
     }
 
     /**
