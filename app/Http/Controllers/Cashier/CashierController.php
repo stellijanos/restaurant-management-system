@@ -141,16 +141,22 @@ class CashierController extends Controller
                 </thead>
                 <tbody>';
 
+            $showBtnPayment = true;
+
             foreach($saleDetails as $saleDetail) {
+                
                 $html .= '
                 <tr>
                     <td>'.$saleDetail->menu_id.'</td>
                     <td>'.$saleDetail->menu_name.'</td>
                     <td>'.$saleDetail->quantity.'</td>
                     <td>'.$saleDetail->menu_price.'</td>
-                    <td>'.($saleDetail->menu_price * $saleDetail->quantity).'</td>
-                    <td>'.$saleDetail->status.'</td>
-                <tr>';
+                    <td>'.($saleDetail->menu_price * $saleDetail->quantity).'</td>';
+                    if ($saleDetail->status == "no-confirm") {
+                        $showBtnPayment = false;
+                    }
+                $html .='<td>'.$saleDetail->status.'</td>';
+                $html .='<tr>';
             }
 
 
@@ -160,12 +166,21 @@ class CashierController extends Controller
 
         $sale = Sale::find($sale_id);
 
-        $html .= 
-        '<hr>
-            <h3>Total Amount: $'.number_format($sale->total_price, 2).'</h3>
-        
-        ';
+        $html .= '<hr><h3>Total Amount: $'.number_format($sale->total_price, 2).'</h3>';
 
+        if ($showBtnPayment) {
+            $html .= 
+            '<div class="d-grid">
+                <button data-id="'.$sale_id.'" class="btn btn-success btn-payment">Payment</button>
+            </div>';
+        } else {
+            $html .= 
+            '<div class="d-grid">
+                <button data-id="'.$sale_id.'" class="btn btn-warning btn-confirm-order">Confirm Order</button>
+            </div>';
+        }
+
+       
 
         return $html;
     }
@@ -183,6 +198,15 @@ class CashierController extends Controller
             $html .= "No sale details were found for the selected table";
         }
 
+        return $html;
+    }
+
+
+    public function confirmOrderStatus(Request $request) {
+        $sale_id = $request->sale_id;
+        $saleDetails = SaleDetail::where('sale_id', $sale_id)->update(['status' => 'confirm']);
+
+        $html = $this->getSaleDetails($sale_id);
         return $html;
     }
 }

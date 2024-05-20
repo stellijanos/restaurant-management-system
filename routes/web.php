@@ -36,7 +36,7 @@ Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
 Route::get('/cashier/get-sale-details-by-table/{table_id}',[CashierController::class, 'getSaleDetailsByTable']);
 
 Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
-
+Route::post('/cashier/confirm-order-status', [CashierController::class, 'confirmOrderStatus']);
 
 
 Route::resource('management/category', CategoryController::class);

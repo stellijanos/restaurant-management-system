@@ -11,12 +11,8 @@
         <div class="col-md-5">
             <div class="d-grid">
                 <button class="btn btn-primary" id="btn-show-tables">View All tables</button>
-                <div id="selected-table">
-                   
-                </div>
-                <div id="order-detail">
-
-                </div>
+                <div id="selected-table"></div>
+                <div id="order-detail"></div>
             </div>
         </div>
         <div class="col-md-7">
@@ -112,6 +108,26 @@
                    }
                 });
             }
+        });
+
+
+        $("#order-detail").on('click', '.btn-confirm-order', function() {
+            let SALE_ID = $(this).data('id');
+
+            $.ajax({
+                type:'POST',
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                    "sale_id": SALE_ID
+                },
+                url: "/cashier/confirm-order-status",
+                success: function(data) {
+                    $('#order-detail').html(data);
+                },
+                error: function(data) {
+
+                }
+            });
         });
 
     });
