@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant App | Receipt - SaleID: {{$sale->id}}</title>
+    <link type="text/css" rel="stylesheet" href="{{asset('css/receipt.css')}}" media="all">
+    <link type="text/css" rel="stylesheet" href="{{asset('css/no-print.css')}}" media="print">
+    
 </head>
 <body>
     <div id="wrapper">
-        <div id="recept-header">
+        <div id="receipt-header">
             <h3 id="restaurant-name">Restaurant App - Janos</h3>
             <p>Address: Str. Restaurants Nr. 5</p>
             <p>Cluj-Napoca, Cluj</p>
             <p>Tel: +407XXXXXXX6</p>
             <p>Reference Receipt: <strong>{{$sale->id}}</strong></p>
         </div>
-        <div id="recept-body">
+        <div id="receipt-body">
             <table class="tb-sale-detail">
                 <thead>
                     <tr>
@@ -61,10 +64,10 @@
                 </tbody>
             </table>
         </div>
-        <div id="recept-footer">
+        <div id="receipt-footer">
             <p>Thank you for eating by us!</p>
         </div>
-        <div id="recept-buttons">
+        <div id="receipt-buttons">
             <a href="/cashier">
                 <button class="btn btn-back">
                     Back to Cashier
