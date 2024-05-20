@@ -179,7 +179,7 @@ class CashierController extends Controller
         if ($showBtnPayment) {
             $html .= 
             '<div class="d-grid">
-                <button data-id="'.$sale_id.'" class="btn btn-success btn-payment">Payment</button>
+                <button data-id="'.$sale_id.'" data-total-amount="'.$sale->total_price.'" class="btn btn-success btn-payment" data-bs-toggle="modal" data-bs-target="#exampleModal">Payment</button>
             </div>';
         } else {
             $html .= 
