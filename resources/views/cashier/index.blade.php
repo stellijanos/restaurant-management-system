@@ -43,10 +43,15 @@
       </div>
       <div class="modal-body">
         <h3 id="total-amount"></h3>
+        <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="number" name="recieved-amount" class="form-control" id="recieved-amount">
+        </div>
+        <h3 class="change-amount"></h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id="btn-save-payment" disabled>Save Payment</button>
       </div>
     </div>
   </div>
@@ -175,11 +180,24 @@
         
 
         // when a user clicks on the payment button 
-
         $('#order-detail').on('click', '.btn-payment', function() {
             let totalAmount = $(this).data('total-amount');
-            console.log(totalAmount);
-            $("#total-amount").html("Total amount: $" + totalAmount);
+            $("#total-amount").html("Total amount: $" + Number(totalAmount).toFixed(2));
+            $('#recieved-amount').val('');
+            $(".change-amount").html('');
+        });
+
+
+        // calculate change
+        $("#recieved-amount").keyup(function() {
+            let totalAmount = $(".btn-payment").attr('data-total-amount');
+            let recievedAmount = $(this).val();
+            let changeAmnount = recievedAmount - totalAmount;
+            $(".change-amount").html("Total change: $" + Number(changeAmnount).toFixed(2));
+
+            // check if cashier entered the right amount, then enable or disable the save payment button
+            $("#btn-save-payment").prop('disabled', changeAmnount < 0);
+            
         });
 
     });
