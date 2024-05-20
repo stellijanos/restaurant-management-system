@@ -43,11 +43,22 @@
       </div>
       <div class="modal-body">
         <h3 id="total-amount"></h3>
+        <h3 class="change-amount"></h3>
         <div class="input-group mb-3">
             <span class="input-group-text">$</span>
             <input type="number" name="recieved-amount" class="form-control" id="recieved-amount">
         </div>
-        <h3 class="change-amount"></h3>
+
+        <div class="form-group">
+            <label for="payment-type">Payment Type</label>
+            <select name="payment" class="form-select" id="payment-type">
+                <option value="0" selected disabled>Choose an option</option>
+                <option value="cash">Cash</option>
+                <option value="credit-card">Credit card</option>
+            </select>
+
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -96,6 +107,7 @@
 
         let SELECTED_TABLE_ID = "";
         let SELECTED_TABLE_NAME = "";
+        let SALE_ID = "";
 
         // detect button on click to show table data
         $('#table-detail').on("click", ".btn-table", function() {
@@ -185,6 +197,7 @@
             $("#total-amount").html("Total amount: $" + Number(totalAmount).toFixed(2));
             $('#recieved-amount').val('');
             $(".change-amount").html('');
+            SALE_ID = $(this).data('id');
         });
 
 
@@ -198,6 +211,31 @@
             // check if cashier entered the right amount, then enable or disable the save payment button
             $("#btn-save-payment").prop('disabled', changeAmnount < 0);
             
+        });
+
+        // save payment
+        $('#btn-save-payment').click(function() {
+            let recievedAmount = $("#recieved-amount").val();
+            let paymentType = $('#payment-type').val();
+            let saleId = SALE_ID;
+
+            $.ajax({
+                type:"POST",
+                data: {
+                    "_token" : $('meta[name="csrf-token"]').attr('content'),
+                    "sale_id": saleId,
+                    "recieved_amount" :recievedAmount,
+                    "payment_type" : paymentType
+                },
+                url: "/cashier/save-payment",
+                success: function(data) {
+                    window.location.href = data;
+                },
+                error: function(data) {
+
+                }
+            })
+
         });
 
     });

@@ -38,6 +38,7 @@ Route::get('/cashier/get-sale-details-by-table/{table_id}',[CashierController::c
 Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
 Route::post('/cashier/confirm-order-status', [CashierController::class, 'confirmOrderStatus']);
 Route::post('/cashier/delete-sale-detail', [CashierController::class, 'deleteSaleDetail']);
+Route::post('/cashier/save-payment',[CashierController::class, 'savePayment']);
 
 Route::resource('management/category', CategoryController::class);
 Route::resource('management/menu', MenuController::class);
