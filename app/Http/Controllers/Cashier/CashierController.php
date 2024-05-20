@@ -265,7 +265,16 @@ class CashierController extends Controller
         $table->status = "available";
         $table->save();
 
-        return "/cashier";
+        return "/cashier/show-receipt/".$saleId;
 
+    }
+
+
+    public function showReceipt($sale_id) {
+
+        return view('cashier.show-receipt',[
+            'sale' => Sale::find($sale_id),
+            'saleDetails' => SaleDetail::where('sale_id', $sale_id)->get()
+        ]);
     }
 }
