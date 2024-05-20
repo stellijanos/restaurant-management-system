@@ -15,7 +15,7 @@
                    
                 </div>
                 <div id="order-detail">
-                    
+
                 </div>
             </div>
         </div>
@@ -82,6 +82,9 @@
             SELECTED_TABLE_NAME = $(this).data("name");
 
             $("#selected-table").html('<br><h3>Table: ' + SELECTED_TABLE_NAME + ' </h3><hr>')
+            $.get("/cashier/get-sale-details-by-table/" + SELECTED_TABLE_ID, function(data) {
+                $("#order-detail").html(data);
+            });
         });
 
         $("#list-menu").on("click", ".btn-menu", function() {
@@ -102,7 +105,6 @@
                     },
                     
                     success: function(data) {
-                        console.log(data);
                         $("#order-detail").html(data);
                     },
                     error: function(data) {

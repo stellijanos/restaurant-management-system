@@ -33,7 +33,11 @@ Route::get('/management', function() {
 Route::get('/cashier', [CashierController::class, 'index']);
 Route::get('/cashier/get-menu-by-category/{category_id}',[CashierController::class, 'getMenuByCategory']);
 Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
+Route::get('/cashier/get-sale-details-by-table/{table_id}',[CashierController::class, 'getSaleDetailsByTable']);
+
 Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
+
+
 
 Route::resource('management/category', CategoryController::class);
 Route::resource('management/menu', MenuController::class);
