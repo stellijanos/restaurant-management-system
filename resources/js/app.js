@@ -11,25 +11,10 @@ import { DateTime, TempusDominus } from '@eonasdan/tempus-dominus';
 import '@eonasdan/tempus-dominus/dist/css/tempus-dominus.css';
 
 // Initialize Tempus Dominus
-$(document).ready(function () {
-    const picker1 = new TempusDominus(document.getElementById('start-date'), {
-        display: {
-            components: {
-                decades: true,
-                year: true,
-                month: true,
-                date: true,
-                hours: false,
-                minutes: false,
-                seconds: false
-            }
-        },
-        localization: {
-            hourCycle: 'h23'
-        }
-    });
+$(function () {
 
-    const picker2 = new TempusDominus(document.getElementById('end-date'), {
+
+    const commonOptions = {
         display: {
             components: {
                 decades: true,
@@ -42,29 +27,19 @@ $(document).ready(function () {
             }
         },
         localization: {
-            hourCycle: 'h23'
+            format: 'dd.MM.y'
         }
-    });
+    };
+
+    const picker1 = new TempusDominus(document.getElementById('start-date'), commonOptions);
+    const picker2 = new TempusDominus(document.getElementById('end-date'), commonOptions);
 
     document.getElementById('start-date').addEventListener('change.td', (e) => {
         picker2.updateOptions({
             restrictions: {
                 minDate: e.detail.date
             },
-            display: {
-                components: {
-                    decades: true,
-                    year: true,
-                    month: true,
-                    date: true,
-                    hours: false,
-                    minutes: false,
-                    seconds: false
-                }
-            },
-            localization: {
-                hourCycle: 'h23'
-            }
+            ...commonOptions
         });
     });
 
@@ -73,31 +48,10 @@ $(document).ready(function () {
             restrictions: {
                 maxDate: e.detail.date
             },
-            display: {
-                components: {
-                    decades: true,
-                    year: true,
-                    month: true,
-                    date: true,
-                    hours: false,
-                    minutes: false,
-                    seconds: false
-                }
-            },
-            localization: {
-                hourCycle: 'h23'
-            }
+            ...commonOptions
         });
     });
 });
-
-
-
-
-
-
-
-
 
 
 
