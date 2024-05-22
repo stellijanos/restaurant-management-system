@@ -24,6 +24,30 @@
             </nav>
         </div>
     </div>
+
+    <div class="row">
+        <form action="/report/show" method="get">
+            <div class="col-md-12" style="width:220px">
+                <label for="">Choose date for report</label>
+                <div class="form-group mb-3">
+                    <div class="input-group date" id="start-date" data-target-input="nearest">
+                        <input type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start-date"/>
+                        
+                        <div data-target="#start-date" data-toggle="datetimepicker" class="input-group-text" style="cursor:pointer"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <div class="input-group date" id="end-date" data-target-input="nearest">
+                        <input type="text" name="end_date" class="form-control datetimepicker-input" data-target="#end-date"/>
+                        <div data-target="#end-date" data-toggle="datetimepicker" class="input-group-text" style="cursor:pointer"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Show report</button>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 @endsection

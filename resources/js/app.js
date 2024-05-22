@@ -1,3 +1,108 @@
+// Import jQuery
+import $ from 'jquery';
+window.$ = $;
+window.jQuery = $;
+
+// Import Bootstrap
+import 'bootstrap';
+
+// Import Tempus Dominus JS and CSS
+import { DateTime, TempusDominus } from '@eonasdan/tempus-dominus';
+import '@eonasdan/tempus-dominus/dist/css/tempus-dominus.css';
+
+// Initialize Tempus Dominus
+$(document).ready(function () {
+    const picker1 = new TempusDominus(document.getElementById('start-date'), {
+        display: {
+            components: {
+                decades: true,
+                year: true,
+                month: true,
+                date: true,
+                hours: false,
+                minutes: false,
+                seconds: false
+            }
+        },
+        localization: {
+            hourCycle: 'h23'
+        }
+    });
+
+    const picker2 = new TempusDominus(document.getElementById('end-date'), {
+        display: {
+            components: {
+                decades: true,
+                year: true,
+                month: true,
+                date: true,
+                hours: false,
+                minutes: false,
+                seconds: false
+            }
+        },
+        localization: {
+            hourCycle: 'h23'
+        }
+    });
+
+    document.getElementById('start-date').addEventListener('change.td', (e) => {
+        picker2.updateOptions({
+            restrictions: {
+                minDate: e.detail.date
+            },
+            display: {
+                components: {
+                    decades: true,
+                    year: true,
+                    month: true,
+                    date: true,
+                    hours: false,
+                    minutes: false,
+                    seconds: false
+                }
+            },
+            localization: {
+                hourCycle: 'h23'
+            }
+        });
+    });
+
+    document.getElementById('end-date').addEventListener('change.td', (e) => {
+        picker1.updateOptions({
+            restrictions: {
+                maxDate: e.detail.date
+            },
+            display: {
+                components: {
+                    decades: true,
+                    year: true,
+                    month: true,
+                    date: true,
+                    hours: false,
+                    minutes: false,
+                    seconds: false
+                }
+            },
+            localization: {
+                hourCycle: 'h23'
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -37,3 +142,4 @@ app.component('example-component', ExampleComponent);
  */
 
 // app.mount('#app');
+
