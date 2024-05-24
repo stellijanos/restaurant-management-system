@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cashier\CashierController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CategoryController;
 use App\Http\Controllers\Management\MenuController;
 use App\Http\Controllers\Management\TableController;
@@ -19,11 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
