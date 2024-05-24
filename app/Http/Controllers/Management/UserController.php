@@ -73,11 +73,14 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+      
+        return view('management.edit-user',[
+            'user' => User::find($id)
+        ]);
     }
 
     /**
@@ -85,11 +88,27 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'required|min:6',
+            'role' => 'required'
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->save();
+
+        $request->session()->flash('status', $request->name.' is updated successfully!');
+
+        return redirect('/management/user');
     }
 
     /**
