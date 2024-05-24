@@ -149,7 +149,10 @@ class CashierController extends Controller
                 <tr>
                     <td>'.$saleDetail->menu_id.'</td>
                     <td>'.$saleDetail->menu_name.'</td>
-                    <td>'.$saleDetail->quantity.'</td>
+                    <td>
+                        '.$saleDetail->quantity.'
+                        <button data-id="'.$saleDetail->id.'" class="btn btn-primary btn-sm btn-increase-quantity">+</button>
+                    </td>
                     <td>'.$saleDetail->menu_price.'</td>
                     <td>'.($saleDetail->menu_price * $saleDetail->quantity).'</td>
                     <td>';
@@ -206,6 +209,23 @@ class CashierController extends Controller
             $html .= "No sale details were found for the selected table";
         }
 
+        return $html;
+    }
+
+    public function increaseQuantity(Request $request) {
+        $saleDetailId = $request->sale_detail_id;
+        
+        // update quantity
+        $saleDetail = SaleDetail::where('id', $saleDetailId)->first();
+        $saleDetail->quantity += 1;
+        $saleDetail->save();
+
+        // update total amount
+        $sale = Sale::find($saleDetail->sale_id);
+        $sale->total_price = $sale->total_price + $saleDetail->menu_price;
+        $sale->save();
+
+        $html = $this->getSaleDetails($saleDetail->sale_id);
         return $html;
     }
 

@@ -189,6 +189,27 @@
             });
         });
 
+
+        // increase quantity
+        $('#order-detail').on('click', '.btn-increase-quantity', function() {
+            let SALE_DETAIL_ID = $(this).data("id");
+
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "_token" : $('meta[name="csrf-token"]').attr('content'),
+                    "sale_detail_id": SALE_DETAIL_ID
+                },
+                url: '/cashier/increase-quantity',
+                success: function(data) {
+                    $('#order-detail').html(data);
+                },
+                error: function(data) {
+
+                }
+            });
+        });
+
         
 
         // when a user clicks on the payment button 

@@ -41,6 +41,8 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/cashier/delete-sale-detail', [CashierController::class, 'deleteSaleDetail']);
     Route::post('/cashier/save-payment',[CashierController::class, 'savePayment']);
     Route::get('/cashier/show-receipt/{sale_id}',[CashierController::class, 'showReceipt']);
+    Route::post('/cashier/increase-quantity', [CashierController::class, 'increaseQuantity']);
+
 });
 
 Route::middleware(['auth', 'verifyAdmin'])->group(function() {
