@@ -52,7 +52,7 @@
                             $countSale = ($sales->currentPage()-1) * $sales->perPage() + 1;
                         @endphp
                         @foreach ($sales as $sale )
-                            <tr cextss="bg-primary text-light">las
+                            <tr class="bg-primary texlaslight">
                                 <td>{{$countSale++}}</td>
                                 <td>{{$sale->id}}</td>
                                 <td>{{date('d.m.Y H:i:s',strtotime($sale->updated_at))}}</td>
@@ -68,7 +68,7 @@
                                 <th>Price</th>
                                 <th>Total price</th>
                             </tr>
-                            @foreach ($sale->saleDetails() as $saleDetail )
+                            @foreach ($sale->saleDetails as $saleDetail )
                                 <tr>
                                     <td></td>
                                     <td>{{$saleDetail->menu_id}}</td>
@@ -84,6 +84,12 @@
                 </table>
 
                 {{$sales->appends($_GET)->links()}}
+
+                <form action="/report/show/export" method="get">
+                    <input type="hidden" name="start_date" value="{{$start_date}}">
+                    <input type="hidden" name="end_date" value="{{$end_date}}">
+                    <button class="btn btn-warning" type="submit">Export to Excel</button>
+                </form>
 
             @else
 

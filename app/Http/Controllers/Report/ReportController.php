@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 
+use App\Exports\SaleReportExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ReportController extends Controller
 {
     public function index() {
@@ -34,5 +37,15 @@ class ReportController extends Controller
             'totalSale' => $totalSale,
             'sales' => $sales
         ]);
+    }
+
+
+    public function export(Request $request) {
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+
+        return Excel::download(new SaleReportExport($start_date, $end_date), 'saleReport.xlsx');
     }
 }
