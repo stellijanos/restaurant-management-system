@@ -4,6 +4,7 @@ use App\Http\Controllers\Cashier\CashierController;
 use App\Http\Controllers\Management\CategoryController;
 use App\Http\Controllers\Management\MenuController;
 use App\Http\Controllers\Management\TableController;
+use App\Http\Controllers\Management\UserController;
 use App\Http\Controllers\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'verifyAdmin'])->group(function() {
     Route::resource('management/category', CategoryController::class);
     Route::resource('management/menu', MenuController::class);
     Route::resource('management/table', TableController::class);
+    Route::resource('management/user', UserController::class);
 
     // Routes for report
     Route::get('/report',[ReportController::class, 'index']);
