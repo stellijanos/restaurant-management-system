@@ -15,25 +15,31 @@
                     @endif
 
                     <div class="row text-center">
-                        <div class="col-sm-4">
-                            <a href="/management">
-                                <h4>Management</h4>
-                                <img width="50px" src="{{asset('images/management.png')}}" alt="">
-                            </a>
-                        </div>
+                        @if(Auth::user()->checkAdmin())
+                            <div class="col-sm-4">
+                                <a href="/management">
+                                    <h4>Management</h4>
+                                    <img width="50px" src="{{asset('images/management.png')}}" alt="">
+                                </a>
+                            </div>
+                        @endif
                         <div class="col-sm-4">
                             <a href="/cashier">
                                 <h4>Cashier</h4>
                                 <img width="50px" src="{{asset('images/cashier.png')}}" alt="">
                             </a>
                         </div>
-                        <div class="col-sm-4">
-                            <a href="/report">
-                                <h4>Report</h4>
-                                <img width="50px" src="{{asset('images/report.png')}}" alt="">
-                            </a>
-                        </div>
+                    
+                        @if(Auth::user()->checkAdmin())
+                            <div class="col-sm-4">
+                                <a href="/report">
+                                    <h4>Report</h4>
+                                    <img width="50px" src="{{asset('images/report.png')}}" alt="">
+                                </a>
+                            </div>
+                        @endif
                     </div>
+                    
                 </div>
             </div>
         </div>
