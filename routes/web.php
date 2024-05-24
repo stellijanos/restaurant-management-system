@@ -27,32 +27,35 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/management', function() {
-    return view('management.index');
+Route::middleware(['auth'])->group(function() {
+   
+
+    // Routes for cashier
+    Route::get('/cashier', [CashierController::class, 'index']);
+    Route::get('/cashier/get-menu-by-category/{category_id}',[CashierController::class, 'getMenuByCategory']);
+    Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
+    Route::get('/cashier/get-sale-details-by-table/{table_id}',[CashierController::class, 'getSaleDetailsByTable']);
+
+    Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
+    Route::post('/cashier/confirm-order-status', [CashierController::class, 'confirmOrderStatus']);
+    Route::post('/cashier/delete-sale-detail', [CashierController::class, 'deleteSaleDetail']);
+    Route::post('/cashier/save-payment',[CashierController::class, 'savePayment']);
+    Route::get('/cashier/show-receipt/{sale_id}',[CashierController::class, 'showReceipt']);
 });
 
-// Routes for cashier
-Route::get('/cashier', [CashierController::class, 'index']);
-Route::get('/cashier/get-menu-by-category/{category_id}',[CashierController::class, 'getMenuByCategory']);
-Route::get('/cashier/get-tables', [CashierController::class, 'getTables']);
-Route::get('/cashier/get-sale-details-by-table/{table_id}',[CashierController::class, 'getSaleDetailsByTable']);
+Route::middleware(['auth', 'verifyAdmin'])->group(function() {
 
-Route::post('/cashier/order-food', [CashierController::class, 'orderFood']);
-Route::post('/cashier/confirm-order-status', [CashierController::class, 'confirmOrderStatus']);
-Route::post('/cashier/delete-sale-detail', [CashierController::class, 'deleteSaleDetail']);
-Route::post('/cashier/save-payment',[CashierController::class, 'savePayment']);
-Route::get('/cashier/show-receipt/{sale_id}',[CashierController::class, 'showReceipt']);
+    Route::get('/management', function() {
+        return view('management.index');
+    });
 
+    // Routes for management
+    Route::resource('management/category', CategoryController::class);
+    Route::resource('management/menu', MenuController::class);
+    Route::resource('management/table', TableController::class);
 
-
-// Routes for management
-Route::resource('management/category', CategoryController::class);
-Route::resource('management/menu', MenuController::class);
-Route::resource('management/table', TableController::class);
-
-
-// Routes for report
-
-Route::get('/report',[ReportController::class, 'index']);
-Route::get('/report/show', [ReportController::class, 'show']);
-Route::get('/report/show/export',[ReportController::class, 'export']);
+    // Routes for report
+    Route::get('/report',[ReportController::class, 'index']);
+    Route::get('/report/show', [ReportController::class, 'show']);
+    Route::get('/report/show/export',[ReportController::class, 'export']);
+});
